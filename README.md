@@ -1,4 +1,4 @@
-# Documentación Técnica: Snake Clásico con Tkinter
+# Snake Clásico
 
 ## 1. Descripción General
 Este programa implementa el clásico juego Snake utilizando Python y la biblioteca Tkinter para la interfaz gráfica. El juego incluye un menú principal, sistema de ajustes configurables y la lógica completa del juego.
@@ -136,5 +136,3 @@ python snake_game.py
 2. Añadir diferentes niveles de dificultad
 3. Incorporar efectos de sonido
 4. Añadir modo de dos jugadores
-
-Esta documentación cubre todos los aspectos esenciales del código. Para cualquier ampliación o modificación, se recomienda mantener la estructura actual de clases y métodos.
