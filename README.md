@@ -1,146 +1,140 @@
-# Documentación del Juego Snake Clásico con Tkinter
+# Documentación Técnica: Snake Clásico con Tkinter
 
-## Descripción General
-Este es un juego clásico de Snake implementado en Python usando la biblioteca Tkinter para la interfaz gráfica. El juego incluye un menú principal, pantalla de ajustes configurables y la lógica completa del juego Snake.
+## 1. Descripción General
+Este programa implementa el clásico juego Snake utilizando Python y la biblioteca Tkinter para la interfaz gráfica. El juego incluye un menú principal, sistema de ajustes configurables y la lógica completa del juego.
 
-## Estructura del Código
+## 2. Estructura de Clases
 
-### Clase Principal: `SnakeGame`
-La clase principal que gestiona toda la aplicación del juego.
-
-#### Métodos Principales:
-
-1. **`__init__(self, root)`**
-   - Constructor que inicializa la ventana principal y la configuración por defecto
-   - Crea el contenedor principal y muestra el menú inicial
-
-2. **`show_main_menu(self)`**
-   - Muestra el menú principal con tres opciones:
-     - Jugar
-     - Ajustes
-     - Salir
-   - Diseño visual con efectos hover en los botones
-
-3. **`show_settings(self)`**
-   - Muestra la pantalla de configuración con:
-     - Control deslizante para ajustar la velocidad del juego
-     - Selector de color para la serpiente (4 opciones)
-     - Botones para guardar y volver
-
-4. **`save_settings(self)`**
-   - Guarda los ajustes seleccionados en el diccionario `game_settings`
-   - Actualiza la velocidad y color de la serpiente
-
-5. **`start_game(self)`**
-   - Inicializa el juego con los parámetros configurados
-   - Crea el canvas donde se dibujará el juego
-   - Configura los controles y reinicia el estado del juego
-
-### Lógica del Juego
-
-6. **`reset_game(self)`**
-   - Reinicia todas las variables del juego:
-     - Posición inicial de la serpiente
-     - Dirección de movimiento
-     - Posición de la comida
-     - Puntuación
-   - Dibuja los elementos iniciales
-
-7. **`move_snake(self)`**
-   - Lógica principal del movimiento de la serpiente
-   - Maneja:
-     - Movimiento en las 4 direcciones
-     - Crecimiento al comer
-     - Detección de colisiones
-     - Fin del juego
-
-8. **`update_game(self)`**
-   - Bucle principal del juego
-   - Actualiza la posición de la serpiente según la velocidad configurada
-
-### Funciones de Dibujo
-
-9. **`draw_snake(self)`**
-   - Dibuja todos los segmentos de la serpiente usando rectángulos
-   - Usa el color configurado en los ajustes
-
-10. **`draw_food(self)`**
-    - Dibuja la comida como un círculo rojo
-
-11. **`draw_score(self)`**
-    - Muestra la puntuación actual en la esquina superior izquierda
-
-12. **`draw_game_over(self)`**
-    - Muestra el mensaje de fin de juego con la puntuación final
-
-### Control del Juego
-
-13. **`setup_controls(self)`**
-    - Configura los eventos de teclado:
-      - Teclas de flecha para movimiento
-      - ESC para volver al menú
-      - P para pausar
-
-14. **`pause_game(self)`**
-    - Alterna entre pausa y continuar el juego
-    - Muestra un mensaje durante la pausa
-
-15. **`change_direction(self, new_dir)`**
-    - Cambia la dirección de movimiento
-    - Previene movimientos inversos inválidos
-
-## Configuración del Juego
-
-El diccionario `game_settings` contiene:
+### 2.1 Clase Principal: `SnakeGame`
+Gestiona toda la aplicación y contiene las siguientes funcionalidades:
 
 ```python
-{
-    "speed": 150,          # Velocidad inicial (ms entre actualizaciones)
-    "snake_color": "green",# Color de la serpiente
-    "food_color": "red",   # Color de la comida
-    "bg_color": "black",   # Color de fondo
-    "text_color": "white"  # Color del texto
-}
+class SnakeGame:
+    def __init__(self, root):
+        # Inicialización de la ventana principal
+        self.root = root
+        self.root.title("Snake Clásico")
+        self.root.geometry("800x600")
+        self.root.resizable(False, False)
+        
+        # Configuración por defecto
+        self.game_settings = {
+            "speed": 150,         # Velocidad inicial (ms)
+            "snake_color": "green", # Color de la serpiente
+            "food_color": "red",   # Color de la comida
+            "bg_color": "black",   # Color de fondo
+            "text_color": "white"  # Color del texto
+        }
 ```
 
-## Flujo del Programa
+## 3. Subsistemas Principales
 
-1. Se crea la instancia de `SnakeGame` con la ventana principal de Tkinter
-2. Muestra el menú principal
-3. El usuario puede:
-   - Ir a ajustes y modificar configuración
-   - Iniciar el juego
-   - Salir de la aplicación
-4. Durante el juego, puede:
-   - Controlar la serpiente
-   - Pausar el juego
-   - Volver al menú principal
+### 3.1 Sistema de Menú
+| Método | Descripción |
+|--------|-------------|
+| `show_main_menu()` | Muestra la pantalla principal con botones de navegación |
+| `show_settings()` | Muestra el panel de configuración del juego |
+| `clear_screen()` | Elimina todos los widgets del contenedor principal |
 
-## Requisitos
+### 3.2 Sistema de Juego
+| Componente | Función |
+|------------|---------|
+| `start_game()` | Inicializa el área de juego |
+| `reset_game()` | Reinicia el estado del juego |
+| `move_snake()` | Lógica de movimiento y colisiones |
+| `draw_snake()` | Renderizado de la serpiente |
+| `draw_food()` | Renderizado de la comida |
 
-- Python 3.x
+### 3.3 Sistema de Configuración
+| Elemento | Tipo | Rango | Efecto |
+|----------|------|-------|--------|
+| Velocidad | Slider | 50-300 ms | Controla la velocidad de actualización |
+| Color Serpiente | Radio Buttons | 4 opciones | Cambia el color de la serpiente |
+
+## 4. Flujo del Programa
+
+1. **Inicialización**:
+   ```mermaid
+   graph TD
+     A[Inicio] --> B[Mostrar Menú Principal]
+     B --> C[Esperar Interacción]
+   ```
+
+2. **Ciclo del Juego**:
+   ```mermaid
+   graph TD
+     G[Inicio Juego] --> H[Dibujar Elementos]
+     H --> I[Esperar Input]
+     I --> J{Movimiento}
+     J --> K[Actualizar Posición]
+     K --> L[Verificar Colisiones]
+     L --> M{Game Over?}
+     M -->|No| H
+     M -->|Sí| N[Mostrar Resultados]
+   ```
+
+## 5. Detalles Técnicos
+
+### 5.1 Control de la Serpiente
+```python
+def change_direction(self, new_dir):
+    opposites = [("Up", "Down"), ("Left", "Right")]
+    if not self.paused and (self.direction, new_dir) not in opposites:
+        self.next_direction = new_dir
+```
+- Implementa restricción para evitar movimientos inversos
+- Gestiona la dirección actual y la siguiente por separado
+
+### 5.2 Sistema de Colisiones
+```python
+# Verificación de colisiones
+if (new_head in self.snake or 
+    new_head[0] < 0 or 
+    new_head[0] >= self.width or 
+    new_head[1] < 0 or 
+    new_head[1] >= self.height):
+    self.game_over = True
+```
+- Detecta colisiones con:
+  - El propio cuerpo
+  - Los bordes del área de juego
+
+## 6. Personalización
+
+### 6.1 Ajustes Disponibles
+| Parámetro | Valores | Método de Cambio |
+|-----------|---------|------------------|
+| Velocidad | 50-300 ms | Slider interactivo |
+| Color | green, blue, yellow, purple | Selector visual |
+
+### 6.2 Persistencia de Configuración
+Los ajustes se guardan en el diccionario `game_settings` y persisten durante toda la sesión.
+
+## 7. Requisitos del Sistema
+
+- Python 3.6+
 - Bibliotecas:
-  - tkinter
-  - random
+  - tkinter (incluida en Python estándar)
+  - random (incluida en Python estándar)
 
-## Personalización
+## 8. Ejecución
 
-Los aspectos que se pueden configurar fácilmente son:
+Para iniciar el juego:
+```bash
+python snake_game.py
+```
 
-1. **Velocidad del juego**: Desde 50ms (muy rápido) hasta 300ms (lento)
-2. **Color de la serpiente**: 4 opciones disponibles (verde, azul, amarillo, morado)
-3. **Tamaño del tablero**: Modificando `width` y `height` en `start_game()`
-4. **Tamaño de celda**: A través de `cell_size`
+## 9. Limitaciones Conocidas
 
-## Limitaciones Conocidas
+1. Las puntuaciones no se guardan entre sesiones
+2. El tamaño del tablero es fijo (600x400 px)
+3. Solo disponible un modo de juego básico
 
-1. No guarda las puntuaciones máximas entre sesiones
-2. El diseño visual es básico pero funcional
-3. Solo un modo de juego disponible
-
-## Posibles Mejoras
+## 10. Posibles Mejoras
 
 1. Implementar sistema de guardado de puntuaciones
-2. Añadir diferentes modos de juego
-3. Incluir efectos de sonido
-4. Agregar más opciones de personalización
+2. Añadir diferentes niveles de dificultad
+3. Incorporar efectos de sonido
+4. Añadir modo de dos jugadores
+
+Esta documentación cubre todos los aspectos esenciales del código. Para cualquier ampliación o modificación, se recomienda mantener la estructura actual de clases y métodos.
